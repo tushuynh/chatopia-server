@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatopia Landing Page</title>
+</head>
+<body>
+  <input type="text" name="message" id="message">
+  <input type="button" value="Submit" id="submit">
+
+  <script src="https://cdn.socket.io/4.7.3/socket.io.min.js" integrity="sha384-+miq58Ltmjm+SSP5g8Ok6dpMO/6R4n8xe/x1Yj0Bdb9kiEz25LTnWv/GZQTRQamg" crossorigin="anonymous"></script>
+  <script>
+    const socket = io('ws://localhost:5001/socket.io')
+    const submitBtn = document.getElementById('submit')
+    const text = document.getElementById('message')
+
+
+    submitBtn.addEventListener('click', () => {
+      const message = text.value
+      text.value = ''
+      console.log(message)
+
+      socket.emit('message', message)
+    })
+
+    socket.on('message', ({ type, data }) => {
+      console.log('from server: ')
+      console.log(`type: ${type}`)
+      console.log(`data: ${data}`)
+    })
+
+    socket.on('connect', () => {
+      console.log(`Socket connected: ${socket.id}`)
+    })
+
+    socket.on('disconnect', () => {
+      console.log(`Socket disconnected: ${socket.id}`)
+    })
+  </script>
+</body>
+</html>
