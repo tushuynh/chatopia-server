@@ -11,6 +11,7 @@ import { CreateUserDto } from '../user/dtos/createUser.dto';
 import { ERROR_MESSAGE } from 'src/shared/constants';
 import { User } from '../database/schemas/user.schema';
 import { Model } from 'mongoose';
+import { LoginResponse, Token } from './responses/login.response';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async register(createUserDto: CreateUserDto) {
+  async register(createUserDto: CreateUserDto): Promise<LoginResponse> {
     const { email, username, password } = createUserDto;
 
     const isUsernameExisting = await this.userService.findByUsername(username);
@@ -51,7 +52,7 @@ export class AuthService {
     return { status: true, user, tokens };
   }
 
-  async login(user: User) {
+  async login(user: User): Promise<Token> {
     const tokens = this.generateTokens(user._id.toString());
     return tokens;
   }

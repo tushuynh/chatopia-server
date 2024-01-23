@@ -35,8 +35,8 @@ export class AuthController {
     @Body() loginUserDto: LoginUserDto,
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
-  ) {
-    const { user } = req;
+  ): Promise<LoginResponse> {
+    const user = req.user as User;
     const tokens = await this.authService.login(user as User);
 
     res.cookie('refreshToken', tokens.refreshToken, {
@@ -54,7 +54,7 @@ export class AuthController {
   async register(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<LoginResponse> {
     const response = await this.authService.register(createUserDto);
 
     res.cookie('refreshToken', response.tokens.refreshToken, {

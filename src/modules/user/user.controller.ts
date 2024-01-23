@@ -11,13 +11,7 @@ import {
 import { UserService } from './user.service';
 import { User } from '../database/schemas/user.schema';
 import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
-import {
-  ApiBody,
-  ApiOkResponse,
-  ApiOperation,
-  ApiProperty,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ParseObjectIdPipe } from 'src/core/pipes/parseObjectId.pipe';
 import { SetDisplayNameDto } from './dtos/setDisplayName.dto';
 import { SetAvatarDto } from './dtos/setAvatar.dto';
@@ -71,7 +65,7 @@ export class UserController {
   upsertAvatar(
     @Param('id', ParseObjectIdPipe) id: string,
     @Body('avatarImage') avatarImage: string,
-  ) {
+  ): Promise<UpsertAvatarResponse> {
     return this.userService.upsertAvatar(id, avatarImage);
   }
 

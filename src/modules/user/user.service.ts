@@ -4,6 +4,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { ERROR_MESSAGE } from 'src/shared/constants';
+import { UpsertAvatarResponse } from './responses/upsertAvatar.response';
 
 @Injectable()
 export class UserService {
@@ -37,7 +38,10 @@ export class UserService {
     );
   }
 
-  async upsertAvatar(id: string, avatarImage: string): Promise<object> {
+  async upsertAvatar(
+    id: string,
+    avatarImage: string,
+  ): Promise<UpsertAvatarResponse> {
     const user = await this.userModel.findByIdAndUpdate(
       id,
       {
