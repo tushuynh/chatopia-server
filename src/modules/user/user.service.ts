@@ -1,8 +1,9 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './../database/schemas/user.schema';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dtos/createUser.dto';
+import { ERROR_MESSAGE } from 'src/shared/constants';
 
 @Injectable()
 export class UserService {
@@ -12,8 +13,16 @@ export class UserService {
     return this.userModel.find();
   }
 
-  findFriends(id: string): Promise<Array<User>> {
-    return this.userModel.find({ _id: { $ne: id } });
+  async findFriends(id: string): Promise<Array<User>> {
+    const user = await this.userModel.findById(id);
+    if (!user) {
+      throw new BadRequestException({
+        status: false,
+        msg: ERROR_MESSAGE.USER_NOT_FOUND,
+      });
+    }
+
+    return this.userModel.find({ id: { $ne: id } });
   }
 
   upsertDisplayName(id: string, displayName: string): Promise<User> {

@@ -1,9 +1,9 @@
-import { HTTP_CODE } from 'src/shared/constants';
 import { AuthService } from './auth.service';
 import {
   Body,
   Controller,
   HttpCode,
+  HttpStatus,
   Post,
   Req,
   Res,
@@ -15,7 +15,10 @@ import { CreateUserDto } from '../user/dtos/createUser.dto';
 import { LoginUserDto } from '../user/dtos/loginUser.dto';
 import { LocalAuthGuard } from './guards/localAuth.guard';
 import { User } from '../database/schemas/user.schema';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { LoginResponse } from './responses/login.response';
 
+@ApiTags('Auth')
 @Controller('/api/auth')
 export class AuthController {
   constructor(
@@ -25,7 +28,9 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  @HttpCode(HTTP_CODE.SUCCESS)
+  @ApiOperation({ summary: 'Login with username and password' })
+  @ApiOkResponse({ type: LoginResponse })
+  @HttpCode(HttpStatus.OK)
   async login(
     @Body() loginUserDto: LoginUserDto,
     @Req() req: Request,
@@ -43,7 +48,9 @@ export class AuthController {
   }
 
   @Post('/register')
-  @HttpCode(HTTP_CODE.SUCCESS)
+  @ApiOperation({ summary: 'Register a user' })
+  @ApiOkResponse({ type: LoginResponse })
+  @HttpCode(HttpStatus.OK)
   async register(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
