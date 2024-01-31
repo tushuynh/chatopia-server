@@ -24,8 +24,6 @@ export class ResponseInterceptor<T>
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<ApiResponse<T>> {
-    const request = context.switchToHttp().getRequest() as Request;
-    console.log('request: ', request.headers);
     return next.handle().pipe(
       map((data) => {
         return {
