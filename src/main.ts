@@ -11,6 +11,7 @@ async function bootstrap() {
   const origins = app.get(ConfigService).get<Array<string>>('origins');
   const PORT = app.get(ConfigService).get<number>('PORT');
 
+  console.log('cor origins: ', origins);
   app.enableCors({ origin: origins });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new ResponseInterceptor());
