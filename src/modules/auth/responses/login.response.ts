@@ -11,9 +11,6 @@ export class Token {
 
 export class LoginResponse {
   @ApiProperty()
-  status: boolean;
-
-  @ApiProperty()
   user: User;
 
   @ApiProperty()

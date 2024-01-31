@@ -7,3 +7,7 @@ export enum ERROR_MESSAGE {
   ID_INVALID = 'Id invalid',
   USER_NOT_FOUND = 'User not found',
 }
+
+export enum RESPONSE_MESSAGE {
+  CREATE_MESSAGE_SUCCESS = 'Create a message successfully',
+}

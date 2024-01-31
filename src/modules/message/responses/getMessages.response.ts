@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpsertAvatarResponse {
+export class GetMessagesResponse {
   @ApiProperty()
-  isSet: boolean;
+  fromSelf: boolean;
 
   @ApiProperty()
-  image: string;
+  message: string;
 }

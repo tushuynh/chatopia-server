@@ -4,11 +4,13 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { ERROR_MESSAGE } from 'src/shared/constants';
-import { UpsertAvatarResponse } from './responses/upsertAvatar.response';
+import { UpdateAvatarResponse } from './responses/updateAvatar.response';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {}
 
   findAll(): Promise<Array<User>> {
     return this.userModel.find();
@@ -17,16 +19,13 @@ export class UserService {
   async findFriends(id: string): Promise<Array<User>> {
     const user = await this.userModel.findById(id);
     if (!user) {
-      throw new BadRequestException({
-        status: false,
-        msg: ERROR_MESSAGE.USER_NOT_FOUND,
-      });
+      throw new BadRequestException(ERROR_MESSAGE.USER_NOT_FOUND);
     }
 
-    return this.userModel.find({ id: { $ne: id } });
+    return this.userModel.find({ _id: { $ne: id } });
   }
 
-  upsertDisplayName(id: string, displayName: string): Promise<User> {
+  updateDisplayName(id: string, displayName: string): Promise<User> {
     return this.userModel.findOneAndUpdate(
       {
         _id: id,
@@ -38,10 +37,10 @@ export class UserService {
     );
   }
 
-  async upsertAvatar(
+  async updateAvatar(
     id: string,
     avatarImage: string,
-  ): Promise<UpsertAvatarResponse> {
+  ): Promise<UpdateAvatarResponse> {
     const user = await this.userModel.findByIdAndUpdate(
       id,
       {
@@ -63,9 +62,12 @@ export class UserService {
     return this.userModel.findById(id);
   }
 
-  findByUsername(username: string, password?: boolean): Promise<User | null> {
+  findByUsername(
+    username: string,
+    includePassword?: boolean,
+  ): Promise<User | null> {
     const user = this.userModel.findOne({ username });
-    if (password) {
+    if (includePassword) {
       user.select('+password');
     }
 

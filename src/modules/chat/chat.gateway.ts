@@ -1,18 +1,29 @@
 import {
   ConnectedSocket,
   MessageBody,
+  OnGatewayConnection,
+  OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { UserService } from '../user/user.service';
+import { AuthService } from '../auth/auth.service';
 
-@WebSocketGateway()
-export class ChatGateway {
+@WebSocketGateway({ cors: true })
+export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
+  connectedUsers: Map<string, string> = new Map();
 
-  handleConnection(client: any, ...args: any[]) {
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
+
+  async handleConnection(client: Socket): Promise<void> {
+    // const token = client.handshake.query.token.toString();
     console.log(`Client connected: ${client.id}`);
   }
 
@@ -20,11 +31,25 @@ export class ChatGateway {
     console.log(`Client disconnected: ${client.id}`);
   }
 
-  @SubscribeMessage('message')
-  handleMessage(
-    @MessageBody() data: string,
+  @SubscribeMessage('add-user')
+  handleAddUser(
+    @MessageBody() userId: string,
     @ConnectedSocket() client: Socket,
   ) {
-    this.server.emit('message', data);
+    this.connectedUsers.set(userId, client.id);
+    console.log('all client connecting', this.connectedUsers);
+  }
+
+  @SubscribeMessage('send-message')
+  handleMessage(@MessageBody() data: any, @ConnectedSocket() client: Socket) {
+    const sendUserSocket = this.connectedUsers.get(data.to);
+    if (sendUserSocket) {
+      client.to(sendUserSocket).emit('message-receive', data.message);
+    }
+  }
+
+  @SubscribeMessage('log-out')
+  handleLogout(@MessageBody() userId: string) {
+    this.connectedUsers.delete(userId);
   }
 }

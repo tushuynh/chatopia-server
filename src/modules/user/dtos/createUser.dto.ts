@@ -4,35 +4,36 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  Max,
-  Min,
+  MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  @Min(3)
-  @Max(20)
+  @MinLength(3)
+  @MaxLength(20)
   username: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  @Min(8)
+  @MinLength(8)
   password: string;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  @Max(50)
+  @MaxLength(50)
   email: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @Max(20)
-  displayName: string;
+  @MaxLength(20)
+  displayName?: string;
 
   @ApiProperty({ required: false, default: false })
   @IsOptional()

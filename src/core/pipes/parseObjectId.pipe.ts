@@ -5,10 +5,7 @@ import { ERROR_MESSAGE } from 'src/shared/constants';
 export class ParseObjectIdPipe implements PipeTransform<any, string> {
   transform(value: string): string {
     if (!isValidObjectId(value)) {
-      throw new BadRequestException({
-        status: false,
-        msg: ERROR_MESSAGE.ID_INVALID,
-      });
+      throw new BadRequestException(ERROR_MESSAGE.ID_INVALID);
     }
 
     return value;

@@ -5,8 +5,15 @@ import { ConfigModule } from '@nestjs/config';
 import config from './config/config';
 import { DatabaseModule } from './modules/database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MessageModule } from './modules/message/message.module';
 
-const modules = [DatabaseModule, UserModule, ChatModule, AuthModule];
+const modules = [
+  DatabaseModule,
+  UserModule,
+  ChatModule,
+  AuthModule,
+  MessageModule,
+];
 
 @Module({
   imports: [

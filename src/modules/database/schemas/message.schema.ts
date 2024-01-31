@@ -1,10 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 
+class MessageObject {
+  @Prop({ required: true })
+  text: string;
+}
+
 @Schema({ timestamps: true })
 export class Message {
-  @Prop()
-  message: string;
+  @Prop({ required: true })
+  message: MessageObject;
 
   @Prop()
   users: Array<string>;

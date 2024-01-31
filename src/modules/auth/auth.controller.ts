@@ -15,8 +15,9 @@ import { CreateUserDto } from '../user/dtos/createUser.dto';
 import { LoginUserDto } from '../user/dtos/loginUser.dto';
 import { LocalAuthGuard } from './guards/localAuth.guard';
 import { User } from '../database/schemas/user.schema';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginResponse } from './responses/login.response';
+import { ApiResponseCustom } from 'src/core/decorators/apiOkResponse.decorator';
 
 @ApiTags('Auth')
 @Controller('/api/auth')
@@ -29,7 +30,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   @ApiOperation({ summary: 'Login with username and password' })
-  @ApiOkResponse({ type: LoginResponse })
+  @ApiResponseCustom(HttpStatus.OK, LoginResponse)
   @HttpCode(HttpStatus.OK)
   async login(
     @Body() loginUserDto: LoginUserDto,
@@ -44,13 +45,13 @@ export class AuthController {
       maxAge: this.configService.get('jwt').refreshExpire,
     });
 
-    return { status: true, user, tokens };
+    return { user, tokens };
   }
 
   @Post('/register')
   @ApiOperation({ summary: 'Register a user' })
-  @ApiOkResponse({ type: LoginResponse })
-  @HttpCode(HttpStatus.OK)
+  @ApiResponseCustom(HttpStatus.CREATED, LoginResponse)
+  @HttpCode(HttpStatus.CREATED)
   async register(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
