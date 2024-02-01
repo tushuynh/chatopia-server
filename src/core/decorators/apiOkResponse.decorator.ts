@@ -1,10 +1,10 @@
+import { ApiResponse } from '@core/interceptors/response.interceptor';
 import { Type, applyDecorators } from '@nestjs/common';
 import {
   ApiExtraModels,
   getSchemaPath,
   ApiResponse as ApiResponseSwagger,
 } from '@nestjs/swagger';
-import { ApiResponse } from '../interceptors/response.interceptor';
 
 export const ApiResponseCustom = <GenericType extends Type<unknown>>(
   status: number,

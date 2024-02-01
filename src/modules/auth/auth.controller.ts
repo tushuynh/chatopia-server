@@ -11,13 +11,13 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { CreateUserDto } from '../user/dtos/createUser.dto';
-import { LoginUserDto } from '../user/dtos/loginUser.dto';
 import { LocalAuthGuard } from './guards/localAuth.guard';
-import { User } from '../database/schemas/user.schema';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoginResponse } from './responses/login.response';
-import { ApiResponseCustom } from 'src/core/decorators/apiOkResponse.decorator';
+import { ApiResponseCustom } from '@core/decorators/apiOkResponse.decorator';
+import { LoginUserDto } from '@modules/user/dtos/loginUser.dto';
+import { User } from '@modules/database/schemas/user.schema';
+import { CreateUserDto } from '@modules/user/dtos/createUser.dto';
 
 @ApiTags('Auth')
 @Controller('/api/auth')

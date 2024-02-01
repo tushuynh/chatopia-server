@@ -3,14 +3,14 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
-import { CreateUserDto } from '../user/dtos/createUser.dto';
-import { ERROR_MESSAGE } from 'src/shared/constants';
-import { User } from '../database/schemas/user.schema';
 import { LoginResponse, Token } from './responses/login.response';
+import { UserService } from '@modules/user/user.service';
+import { CreateUserDto } from '@modules/user/dtos/createUser.dto';
+import { ERROR_MESSAGE } from '@shared/constants';
+import { User } from '@modules/database/schemas/user.schema';
 
 @Injectable()
 export class AuthService {

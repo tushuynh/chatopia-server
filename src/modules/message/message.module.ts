@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MessageController } from './message.controller';
 import { MessageService } from './message.service';
-import { Message, MessageSchema } from '../database/schemas/message.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import {
+  Message,
+  MessageSchema,
+} from '@modules/database/schemas/message.schema';
 
 @Module({
   imports: [

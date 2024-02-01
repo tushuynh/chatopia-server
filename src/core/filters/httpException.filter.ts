@@ -1,6 +1,6 @@
 import { ArgumentsHost, ExceptionFilter, HttpException } from '@nestjs/common';
+import { ERROR_MESSAGE } from '@shared/constants';
 import { Response } from 'express';
-import { ERROR_MESSAGE } from 'src/shared/constants';
 
 export interface ErrorResponse {
   success: boolean;

@@ -5,7 +5,6 @@ import {
   CallHandler,
 } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { Request } from 'express';
 import { Observable, map } from 'rxjs';
 
 export class ApiResponse<T> {

@@ -1,6 +1,6 @@
 import { BadRequestException, PipeTransform } from '@nestjs/common';
+import { ERROR_MESSAGE } from '@shared/constants';
 import { isValidObjectId } from 'mongoose';
-import { ERROR_MESSAGE } from 'src/shared/constants';
 
 export class ParseObjectIdPipe implements PipeTransform<any, string> {
   transform(value: string): string {

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { Message } from '../database/schemas/message.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateMessageDto } from './dtos/createMessage.dto';
+import { Message } from '@modules/database/schemas/message.schema';
 
 @Injectable()
 export class MessageService {

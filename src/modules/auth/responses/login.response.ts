@@ -1,5 +1,5 @@
+import { User } from '@modules/database/schemas/user.schema';
 import { ApiProperty } from '@nestjs/swagger';
-import { User } from 'src/modules/database/schemas/user.schema';
 
 export class Token {
   @ApiProperty()

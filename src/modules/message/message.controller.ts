@@ -6,16 +6,15 @@ import {
   HttpStatus,
   Post,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import { MessageService } from './message.service';
 import { CreateMessageDto } from './dtos/createMessage.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { RESPONSE_MESSAGE } from 'src/shared/constants';
-import { SuccessResponse } from 'src/common/responses/success.response';
-import { ApiResponseCustom } from 'src/core/decorators/apiOkResponse.decorator';
 import { GetMessagesDto } from './dtos/getMessages.dto';
 import { GetMessagesResponse } from './responses/getMessages.response';
+import { SuccessResponse } from '@common/responses/success.response';
+import { ApiResponseCustom } from '@core/decorators/apiOkResponse.decorator';
+import { RESPONSE_MESSAGE } from '@shared/constants';
 
 @ApiTags('Message')
 @Controller('api/messages')

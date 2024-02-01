@@ -1,3 +1,5 @@
+import { AuthService } from '@modules/auth/auth.service';
+import { UserService } from '@modules/user/user.service';
 import {
   ConnectedSocket,
   MessageBody,
@@ -8,8 +10,6 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { UserService } from '../user/user.service';
-import { AuthService } from '../auth/auth.service';
 
 @WebSocketGateway({ cors: true })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {

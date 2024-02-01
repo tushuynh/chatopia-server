@@ -1,10 +1,10 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './../database/schemas/user.schema';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dtos/createUser.dto';
-import { ERROR_MESSAGE } from 'src/shared/constants';
 import { UpdateAvatarResponse } from './responses/updateAvatar.response';
+import { ERROR_MESSAGE } from '@shared/constants';
+import { User } from '@modules/database/schemas/user.schema';
 
 @Injectable()
 export class UserService {

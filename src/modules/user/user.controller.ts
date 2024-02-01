@@ -8,13 +8,13 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { User } from '../database/schemas/user.schema';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ParseObjectIdPipe } from 'src/core/pipes/parseObjectId.pipe';
 import { SetDisplayNameDto } from './dtos/setDisplayName.dto';
 import { SetAvatarDto } from './dtos/setAvatar.dto';
 import { UpdateAvatarResponse } from './responses/updateAvatar.response';
-import { ApiResponseCustom } from 'src/core/decorators/apiOkResponse.decorator';
+import { User } from '@modules/database/schemas/user.schema';
+import { ApiResponseCustom } from '@core/decorators/apiOkResponse.decorator';
+import { ParseObjectIdPipe } from '@core/pipes/parseObjectId.pipe';
 
 @ApiTags('Users')
 @Controller('/api/users')
