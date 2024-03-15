@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  server:
+    build:
+      dockerfile: ./dockerfile
+    container_name: server
+    restart: unless-stopped
+    ports:
+    - "5000:5000"
+    networks:
+      - chatopia
+  
+  client:
+    build:
+      context: ../chatopia-client/
+      dockerfile: ./dockerfile
+    container_name: client
+    restart: unless-stopped
+    ports:
+    - "3000:3000"
+    networks:
+      - chatopia
+
+networks:
+  chatopia:

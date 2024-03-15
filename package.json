@@ -17,7 +17,9 @@
     "start:prod": "node dist/main",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "gen:key": "npx ts-node scripts/generateKey.ts"
+    "gen:key": "npx ts-node scripts/generateKey.ts",
+    "predeploy": "nest build",
+    "deploy": "bash ./scripts/deploy.sh"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
