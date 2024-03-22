@@ -8,5 +8,4 @@ RUN npm install
 
 COPY /dist ./dist
 
-EXPOSE 5000
 CMD [ "npm", "start" ]
