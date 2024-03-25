@@ -22,7 +22,8 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, swaggerDocument);
+  process.env.NODE_ENV === 'development' &&
+    SwaggerModule.setup('api', app, swaggerDocument);
 
   await app.listen(PORT, () => {
     console.log(`App listening on http://localhost:${PORT}`);

@@ -7,7 +7,7 @@ services:
     container_name: server
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     networks:
       - chatopia
   
@@ -18,7 +18,7 @@ services:
     container_name: client
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
     networks:
       - chatopia
 
